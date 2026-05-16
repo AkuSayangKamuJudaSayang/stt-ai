@@ -556,8 +556,9 @@ def show_reading():
                     st.error(f"Oops! {err}")
                 else:
                     st.session_state.transcribed_text = text
+                    st.session_state["trans_display"] = text   # update widget state directly
                     st.session_state.accuracy_result  = None
-                    st.success("Got it! 🎉 Scroll down to check your reading!")
+                    st.rerun()
 
     with tab_file:
         st.caption("Upload a WAV or MP3 recording of yourself reading.")
@@ -577,8 +578,9 @@ def show_reading():
                     st.error(f"Oops! {err}")
                 else:
                     st.session_state.transcribed_text = text
+                    st.session_state["trans_display"] = text   # update widget state directly
                     st.session_state.accuracy_result  = None
-                    st.success("Got it! 🎉 Scroll down to check your reading!")
+                    st.rerun()
 
     # ── Step 3: Review Transcription ─────────────────────────────────────────
     st.markdown(
