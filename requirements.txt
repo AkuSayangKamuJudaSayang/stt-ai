@@ -1,4 +1,2 @@
 streamlit>=1.31.0
-SpeechRecognition>=3.10.0
-pydub>=0.25.1
-streamlit-mic-recorder
+assemblyai>=0.30.0
