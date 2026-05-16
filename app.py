@@ -2,7 +2,7 @@
 app.py  —  Para's Reading Adventure
 AI-Enhanced Speech-to-Text Reading Assessment Tool
 
-Child-friendly interface | Blue & Red theme | Main Menu
+Light theme | Blue & Red accents | Black text
 STT Engine: AssemblyAI Universal-3 Pro
 NLP Engine: Python difflib SequenceMatcher
 
@@ -14,15 +14,10 @@ from stt import transcribe
 from accuracy import calculate_accuracy
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Page Configuration
+#  ✏️  PASTE YOUR ASSEMBLYAI API KEY HERE
 # ─────────────────────────────────────────────────────────────────────────────
 
-st.set_page_config(
-    page_title="Para's Reading Adventure",
-    page_icon="🦋",
-    layout="centered",
-    initial_sidebar_state="expanded",
-)
+ASSEMBLYAI_API_KEY = "a8c5f199bd1a48c0a286b61f4f063641"
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Fixed Reading Passage
@@ -44,34 +39,15 @@ PASSAGE = (
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Sidebar — API Key
+#  Page Configuration
 # ─────────────────────────────────────────────────────────────────────────────
 
-with st.sidebar:
-    st.markdown("## ⚙️ Settings")
-    st.markdown("---")
-    api_key = st.text_input(
-        "AssemblyAI API Key",
-        type="password",
-        placeholder="Paste your API key here...",
-        help="Get your free key at assemblyai.com/dashboard/api-keys",
-    )
-    if api_key:
-        st.success("✅ API key entered!")
-    else:
-        st.warning("⚠️ Enter your API key to use the microphone/upload feature.")
-
-    st.markdown("---")
-    st.markdown(
-        "**How to get a key:**\n\n"
-        "1. Go to [assemblyai.com](https://www.assemblyai.com)\n"
-        "2. Sign up for a free account\n"
-        "3. Copy your API key from the dashboard\n"
-        "4. Paste it in the box above"
-    )
-    st.markdown("---")
-    st.caption("ITE153 — Intro to AI and Expert Systems")
-    st.caption("AI: AssemblyAI Universal-3 Pro + NLP SequenceMatcher")
+st.set_page_config(
+    page_title="Para's Reading Adventure",
+    page_icon="🦋",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Session State
@@ -87,7 +63,7 @@ for k, v in _defaults.items():
         st.session_state[k] = v
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Global CSS — child-friendly game look, blue + red palette
+#  Global CSS — light theme, black text, blue + red accents
 # ─────────────────────────────────────────────────────────────────────────────
 
 st.markdown("""
@@ -95,39 +71,36 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap');
 
 /* ── Base ───────────────────────────────────────────────────────────────── */
-html, body, [class*="css"] { font-family: 'Nunito', sans-serif !important; }
-.stApp { background: #dbeafe; }
-#MainMenu, footer, header { visibility: hidden; }
-.block-container { max-width: 700px; padding-top: 1.5rem; padding-bottom: 3rem; }
-h1, h2, h3 { font-family: 'Fredoka', sans-serif !important; }
-
-/* ── Sidebar styling ────────────────────────────────────────────────────── */
-[data-testid="stSidebar"] {
-    background: #1e3a8a !important;
-}
-[data-testid="stSidebar"] * {
-    color: #fff !important;
-}
-[data-testid="stSidebar"] .stTextInput input {
-    background: #1d4ed8 !important;
-    color: #fff !important;
-    border: 2px solid #60a5fa !important;
-    border-radius: 10px !important;
+html, body, [class*="css"] {
     font-family: 'Nunito', sans-serif !important;
+    color: #111827 !important;
 }
-[data-testid="stSidebar"] .stAlert {
-    background: rgba(255,255,255,0.15) !important;
-    border-radius: 10px !important;
+.stApp {
+    background: #f1f5f9 !important;
 }
-[data-testid="stSidebarContent"] h2 {
-    color: #fff !important;
+#MainMenu, footer, header { visibility: hidden; }
+.block-container {
+    max-width: 700px;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    background: #f1f5f9;
+}
+h1, h2, h3, h4 {
     font-family: 'Fredoka', sans-serif !important;
+    color: #111827 !important;
+}
+p, span, label, div {
+    color: #111827;
 }
 
-/* ── Primary button → Red game button ──────────────────────────────────── */
+/* ── Hide sidebar toggle ────────────────────────────────────────────────── */
+[data-testid="collapsedControl"] { display: none !important; }
+[data-testid="stSidebar"]        { display: none !important; }
+
+/* ── Primary button → Red ───────────────────────────────────────────────── */
 [data-testid="stButton"] > button[kind="primary"] {
     background: #dc2626 !important;
-    color: #fff !important;
+    color: #ffffff !important;
     font-family: 'Fredoka', sans-serif !important;
     font-size: 20px !important;
     font-weight: 600 !important;
@@ -139,16 +112,18 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif !important; }
     width: 100% !important;
     letter-spacing: 0.4px;
 }
-[data-testid="stButton"] > button[kind="primary"]:hover  { background: #ef4444 !important; }
+[data-testid="stButton"] > button[kind="primary"]:hover {
+    background: #ef4444 !important;
+}
 [data-testid="stButton"] > button[kind="primary"]:active {
     box-shadow: 0 2px 0 #991b1b !important;
     transform: translateY(4px) !important;
 }
 
-/* ── Secondary button → Blue game button ────────────────────────────────── */
+/* ── Secondary button → Blue ────────────────────────────────────────────── */
 [data-testid="stButton"] > button[kind="secondary"] {
     background: #1d4ed8 !important;
-    color: #fff !important;
+    color: #ffffff !important;
     font-family: 'Fredoka', sans-serif !important;
     font-size: 18px !important;
     font-weight: 600 !important;
@@ -159,7 +134,9 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif !important; }
     transition: transform 0.1s, box-shadow 0.1s !important;
     width: 100% !important;
 }
-[data-testid="stButton"] > button[kind="secondary"]:hover  { background: #2563eb !important; }
+[data-testid="stButton"] > button[kind="secondary"]:hover {
+    background: #2563eb !important;
+}
 [data-testid="stButton"] > button[kind="secondary"]:active {
     box-shadow: 0 2px 0 #1e3a8a !important;
     transform: translateY(3px) !important;
@@ -167,25 +144,32 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif !important; }
 [data-testid="stButton"] > button:disabled {
     background: #94a3b8 !important;
     box-shadow: 0 4px 0 #64748b !important;
-    color: #e2e8f0 !important;
+    color: #f1f5f9 !important;
 }
 
 /* ── Text area ──────────────────────────────────────────────────────────── */
 .stTextArea textarea {
     font-family: 'Nunito', sans-serif !important;
     font-size: 15px !important;
-    border-radius: 16px !important;
-    border: 2.5px solid #93c5fd !important;
-    background: #fff !important;
-    color: #1e3a8a !important;
+    border-radius: 14px !important;
+    border: 2px solid #cbd5e1 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
 }
 .stTextArea textarea:focus {
     border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.15) !important;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.12) !important;
+}
+.stTextArea label {
+    color: #111827 !important;
+    font-weight: 700 !important;
 }
 
 /* ── Tabs ───────────────────────────────────────────────────────────────── */
-.stTabs [data-baseweb="tab-list"] { gap: 8px; background: transparent; }
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background: transparent;
+}
 .stTabs [data-baseweb="tab"] {
     font-family: 'Fredoka', sans-serif !important;
     font-size: 17px !important;
@@ -193,54 +177,71 @@ h1, h2, h3 { font-family: 'Fredoka', sans-serif !important; }
     border-radius: 20px 20px 0 0 !important;
     padding: 8px 24px !important;
     color: #1d4ed8 !important;
-    background: #bfdbfe !important;
+    background: #dbeafe !important;
 }
 .stTabs [aria-selected="true"] {
     background: #1d4ed8 !important;
-    color: #fff !important;
+    color: #ffffff !important;
 }
 
 /* ── Metric cards ───────────────────────────────────────────────────────── */
 [data-testid="metric-container"] {
-    background: #fff !important;
-    border: 2.5px solid #93c5fd !important;
-    border-radius: 18px !important;
+    background: #ffffff !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 16px !important;
     padding: 14px 10px !important;
-    box-shadow: 0 5px 0 #bfdbfe !important;
+    box-shadow: 0 4px 0 #e2e8f0 !important;
     text-align: center !important;
 }
 [data-testid="metric-container"] label {
     font-family: 'Fredoka', sans-serif !important;
     font-size: 14px !important;
-    color: #1d4ed8 !important;
+    color: #374151 !important;
 }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
     font-family: 'Fredoka', sans-serif !important;
     font-size: 30px !important;
-    color: #1e3a8a !important;
+    color: #111827 !important;
 }
 
 /* ── Alerts ─────────────────────────────────────────────────────────────── */
 .stAlert {
-    border-radius: 16px !important;
-    border: none !important;
+    border-radius: 14px !important;
     font-family: 'Nunito', sans-serif !important;
     font-size: 15px !important;
     font-weight: 600 !important;
+    color: #111827 !important;
 }
-hr { border-color: #93c5fd !important; }
+.stAlert p { color: #111827 !important; }
+
+/* ── Expander ────────────────────────────────────────────────────────────── */
 .stExpander {
-    border: 2px solid #93c5fd !important;
+    border: 2px solid #cbd5e1 !important;
     border-radius: 16px !important;
-    background: #fff !important;
+    background: #ffffff !important;
+}
+details summary {
+    font-family: 'Fredoka', sans-serif !important;
+    font-size: 17px !important;
+    color: #1d4ed8 !important;
+    font-weight: 600 !important;
 }
 
-/* ── Spinner ────────────────────────────────────────────────────────────── */
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
 .stSpinner p {
     font-family: 'Fredoka', sans-serif !important;
     font-size: 18px !important;
     color: #1d4ed8 !important;
 }
+
+/* ── Caption / small text ───────────────────────────────────────────────── */
+.stCaption, small, .caption {
+    color: #374151 !important;
+    font-weight: 600 !important;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+hr { border-color: #cbd5e1 !important; }
 
 /* ── Animations ─────────────────────────────────────────────────────────── */
 @keyframes bounce {
@@ -248,7 +249,7 @@ hr { border-color: #93c5fd !important; }
     50%      { transform: translateY(-16px); }
 }
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes starPop {
@@ -258,39 +259,46 @@ hr { border-color: #93c5fd !important; }
 }
 
 /* ── Custom HTML blocks ─────────────────────────────────────────────────── */
+
+/* White game card with light border */
 .game-card {
-    background: #fff;
-    border-radius: 24px;
-    padding: 28px 30px;
-    border: 3px solid #93c5fd;
-    box-shadow: 0 8px 0 #bfdbfe;
-    margin-bottom: 20px;
-    animation: fadeUp 0.5s ease;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 26px 28px;
+    border: 2px solid #cbd5e1;
+    box-shadow: 0 6px 0 #e2e8f0;
+    margin-bottom: 18px;
+    animation: fadeUp 0.45s ease;
 }
+
+/* Passage — stays dark blue, white text (intentional contrast) */
 .passage-card {
     background: #1e3a8a;
-    border-radius: 24px;
-    padding: 26px 30px;
-    color: #fff;
+    border-radius: 22px;
+    padding: 24px 28px;
+    color: #ffffff !important;
     font-size: 18px;
     font-weight: 600;
     line-height: 2.2;
-    margin: 14px 0 20px;
-    box-shadow: 0 8px 0 #1e40af;
-    animation: fadeUp 0.5s ease;
+    margin: 12px 0 18px;
+    box-shadow: 0 7px 0 #1e40af;
+    animation: fadeUp 0.45s ease;
     border: 3px solid #3b82f6;
 }
+
+/* Page title */
 .page-title {
     font-family: 'Fredoka', sans-serif;
-    font-size: 46px;
+    font-size: 44px;
     font-weight: 700;
-    color: #1e3a8a;
+    color: #111827;
     text-align: center;
     line-height: 1.2;
     margin: 0 0 6px;
-    text-shadow: 3px 3px 0 #bfdbfe;
-    animation: fadeUp 0.5s ease;
+    animation: fadeUp 0.45s ease;
 }
+
+/* Bouncing butterfly */
 .hero-char {
     font-size: 96px;
     text-align: center;
@@ -298,11 +306,13 @@ hr { border-color: #93c5fd !important; }
     margin: 8px 0;
     animation: bounce 2.2s ease-in-out infinite;
 }
+
+/* Numbered step label */
 .step-label {
     font-family: 'Fredoka', sans-serif;
     font-size: 22px;
     font-weight: 600;
-    color: #1d4ed8;
+    color: #111827;
     margin: 16px 0 6px;
     display: flex;
     align-items: center;
@@ -310,7 +320,7 @@ hr { border-color: #93c5fd !important; }
 }
 .step-num {
     background: #dc2626;
-    color: #fff;
+    color: #ffffff;
     font-family: 'Fredoka', sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -323,6 +333,8 @@ hr { border-color: #93c5fd !important; }
     flex-shrink: 0;
     box-shadow: 0 3px 0 #991b1b;
 }
+
+/* Score page — big number */
 .score-number {
     font-family: 'Fredoka', sans-serif;
     font-size: 88px;
@@ -344,6 +356,8 @@ hr { border-color: #93c5fd !important; }
     margin: 6px 0 10px;
     animation: starPop 0.6s cubic-bezier(.36,.07,.19,.97) both;
 }
+
+/* Diff legend pills */
 .diff-legend { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 14px; }
 .diff-pill {
     border-radius: 99px;
@@ -352,10 +366,13 @@ hr { border-color: #93c5fd !important; }
     font-size: 13px;
     font-weight: 800;
     border: 2px solid transparent;
+    color: #111827;
 }
+
+/* Page header strip */
 .page-header {
     background: #1e3a8a;
-    border-radius: 20px;
+    border-radius: 18px;
     padding: 14px 22px;
     display: flex;
     align-items: center;
@@ -363,6 +380,8 @@ hr { border-color: #93c5fd !important; }
     margin-bottom: 18px;
     box-shadow: 0 5px 0 #1e40af;
 }
+
+/* How-to-play items */
 .how-item {
     display: flex;
     align-items: flex-start;
@@ -370,7 +389,7 @@ hr { border-color: #93c5fd !important; }
     margin: 10px 0;
     font-size: 16px;
     font-weight: 700;
-    color: #1e3a8a;
+    color: #111827;
 }
 .how-icon { font-size: 26px; flex-shrink: 0; }
 </style>
@@ -388,7 +407,7 @@ def score_to_stars(pct: float) -> tuple[str, str, str]:
     elif pct >= 85:
         return "⭐⭐⭐⭐",   "Great Job!",         "#1d4ed8"
     elif pct >= 70:
-        return "⭐⭐⭐",     "Good Try!",          "#d97706"
+        return "⭐⭐⭐",     "Good Try!",          "#b45309"
     elif pct >= 50:
         return "⭐⭐",       "Keep Practicing!",   "#c2410c"
     else:
@@ -397,8 +416,18 @@ def score_to_stars(pct: float) -> tuple[str, str, str]:
 
 def build_child_diff_html(diff_tokens: list) -> str:
     """Renders color-coded word diff in a child-friendly style."""
-    COLOR = {"correct":"#15803d", "substituted":"#c2410c", "missed":"#b91c1c", "extra":"#1d4ed8"}
-    BG    = {"correct":"#dcfce7", "substituted":"#ffedd5", "missed":"#fee2e2", "extra":"#dbeafe"}
+    COLOR = {
+        "correct"    : "#14532d",
+        "substituted": "#92400e",
+        "missed"     : "#7f1d1d",
+        "extra"      : "#1e3a8a",
+    }
+    BG = {
+        "correct"    : "#dcfce7",
+        "substituted": "#fef3c7",
+        "missed"     : "#fee2e2",
+        "extra"      : "#dbeafe",
+    }
     parts = []
     for token in diff_tokens:
         w   = token["word"]
@@ -410,7 +439,8 @@ def build_child_diff_html(diff_tokens: list) -> str:
         )
     return (
         "<p style='font-family:Nunito,sans-serif;"
-        "line-height:2.6;font-size:17px;'>" + " ".join(parts) + "</p>"
+        "line-height:2.6;font-size:17px;color:#111827;'>"
+        + " ".join(parts) + "</p>"
     )
 
 
@@ -420,16 +450,17 @@ def build_child_diff_html(diff_tokens: list) -> str:
 
 def show_menu():
     st.markdown('<span class="hero-char">🦋</span>', unsafe_allow_html=True)
-    st.markdown('<h1 class="page-title">Para\'s Reading<br>Adventure!</h1>', unsafe_allow_html=True)
+
     st.markdown(
-        '<p style="text-align:center;font-size:19px;color:#1d4ed8;'
+        '<h1 class="page-title">Para\'s Reading<br>Adventure!</h1>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<p style="text-align:center;font-size:19px;color:#111827;'
         'font-weight:700;margin:6px 0 30px;">'
         'Read the story out loud and earn your stars! 📚✨</p>',
         unsafe_allow_html=True,
     )
-
-    if not api_key:
-        st.warning("⚠️ Please enter your **AssemblyAI API key** in the sidebar (⚙️ Settings) before starting!")
 
     _, col, _ = st.columns([1, 2, 1])
     with col:
@@ -441,9 +472,6 @@ def show_menu():
 
     with st.expander("📖  How to Play"):
         st.markdown("""
-<div class="how-item"><span class="how-icon">0️⃣</span>
-<span>Enter your <b style="color:#dc2626">AssemblyAI API key</b> in the sidebar on the left first.</span></div>
-
 <div class="how-item"><span class="how-icon">1️⃣</span>
 <span>Read the story shown on the next screen carefully.</span></div>
 
@@ -461,8 +489,9 @@ def show_menu():
 """, unsafe_allow_html=True)
 
     st.markdown(
-        '<p style="text-align:center;font-size:13px;color:#60a5fa;margin-top:36px;">'
-        'Powered by AssemblyAI Universal-3 Pro &nbsp;|&nbsp; ITE153 — Intro to AI and Expert Systems</p>',
+        '<p style="text-align:center;font-size:13px;color:#374151;margin-top:36px;">'
+        'Powered by AssemblyAI Universal-3 Pro &nbsp;|&nbsp; '
+        'ITE153 — Intro to AI and Expert Systems</p>',
         unsafe_allow_html=True,
     )
 
@@ -475,8 +504,8 @@ def show_reading():
     # ── Top bar ──────────────────────────────────────────────────────────────
     st.markdown(
         '<div class="page-header">'
-        '<span style="font-family:Fredoka,sans-serif;font-size:22px;font-weight:700;color:#fff;">'
-        '🦋 Para\'s Story</span>'
+        '<span style="font-family:Fredoka,sans-serif;font-size:22px;'
+        'font-weight:700;color:#ffffff;">🦋 Para\'s Story</span>'
         '<span style="font-size:26px;">📖</span>'
         '</div>',
         unsafe_allow_html=True,
@@ -494,32 +523,35 @@ def show_reading():
 
     # ── Step 1: Read the Passage ─────────────────────────────────────────────
     st.markdown(
-        '<div class="step-label"><span class="step-num">1</span> Read this passage out loud!</div>',
+        '<div class="step-label">'
+        '<span class="step-num">1</span> Read this passage out loud!'
+        '</div>',
         unsafe_allow_html=True,
     )
     st.markdown(f'<div class="passage-card">{PASSAGE}</div>', unsafe_allow_html=True)
 
     # ── Step 2: Record or Upload ─────────────────────────────────────────────
     st.markdown(
-        '<div class="step-label"><span class="step-num">2</span> Record yourself reading!</div>',
+        '<div class="step-label">'
+        '<span class="step-num">2</span> Record yourself reading!'
+        '</div>',
         unsafe_allow_html=True,
     )
-
-    if not api_key:
-        st.error("⚠️ Please enter your AssemblyAI API key in the **sidebar** (⚙️ Settings) to use this feature.")
 
     tab_mic, tab_file = st.tabs(["🎙️  Microphone", "📂  Upload File"])
 
     with tab_mic:
-        st.caption("Press the microphone button, read the story aloud, then press it again to stop.")
+        st.caption(
+            "Press the microphone button, read the story aloud, "
+            "then press it again to stop recording."
+        )
         audio_val = st.audio_input("Record", label_visibility="collapsed", key="mic_input")
         if audio_val is not None:
             st.audio(audio_val, format="audio/wav")
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("🔊  Transcribe My Recording", type="primary", key="btn_mic",
-                         disabled=not api_key):
+            if st.button("🔊  Transcribe My Recording", type="primary", key="btn_mic"):
                 with st.spinner("✨ AssemblyAI is listening to your reading..."):
-                    text, err = transcribe(audio_val.getvalue(), api_key)
+                    text, err = transcribe(audio_val.getvalue(), ASSEMBLYAI_API_KEY)
                 if err:
                     st.error(f"Oops! {err}")
                 else:
@@ -530,16 +562,17 @@ def show_reading():
     with tab_file:
         st.caption("Upload a WAV or MP3 recording of yourself reading.")
         uploaded = st.file_uploader(
-            "Upload audio", type=["wav", "mp3", "ogg", "m4a"],
-            label_visibility="collapsed", key="file_upload",
+            "Upload audio",
+            type=["wav", "mp3", "ogg", "m4a"],
+            label_visibility="collapsed",
+            key="file_upload",
         )
         if uploaded is not None:
             st.audio(uploaded, format=uploaded.type)
             st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("🔊  Transcribe File", type="primary", key="btn_file",
-                         disabled=not api_key):
+            if st.button("🔊  Transcribe File", type="primary", key="btn_file"):
                 with st.spinner("✨ AssemblyAI is listening to your reading..."):
-                    text, err = transcribe(uploaded.read(), api_key)
+                    text, err = transcribe(uploaded.read(), ASSEMBLYAI_API_KEY)
                 if err:
                     st.error(f"Oops! {err}")
                 else:
@@ -549,7 +582,9 @@ def show_reading():
 
     # ── Step 3: Review Transcription ─────────────────────────────────────────
     st.markdown(
-        '<div class="step-label"><span class="step-num">3</span> What the computer heard:</div>',
+        '<div class="step-label">'
+        '<span class="step-num">3</span> What the computer heard:'
+        '</div>',
         unsafe_allow_html=True,
     )
     st.caption("You can fix any mistakes here before checking your score.")
@@ -568,7 +603,12 @@ def show_reading():
 
     # ── Check Score ──────────────────────────────────────────────────────────
     can_score = bool(transcribed.strip())
-    if st.button("⭐  Check My Score!", type="primary", disabled=not can_score, key="btn_score"):
+    if st.button(
+        "⭐  Check My Score!",
+        type="primary",
+        disabled=not can_score,
+        key="btn_score",
+    ):
         result = calculate_accuracy(PASSAGE, transcribed)
         st.session_state.accuracy_result = result
         st.session_state.page = "results"
@@ -597,15 +637,16 @@ def show_results():
     # ── Top bar ──────────────────────────────────────────────────────────────
     st.markdown(
         '<div class="page-header">'
-        '<span style="font-family:Fredoka,sans-serif;font-size:22px;font-weight:700;color:#fff;">'
-        '🏆 Your Results</span><span style="font-size:26px;">🎉</span>'
+        '<span style="font-family:Fredoka,sans-serif;font-size:22px;'
+        'font-weight:700;color:#ffffff;">🏆 Your Results</span>'
+        '<span style="font-size:26px;">🎉</span>'
         '</div>',
         unsafe_allow_html=True,
     )
 
     # ── Score card ───────────────────────────────────────────────────────────
     st.markdown(
-        f'<div class="game-card" style="border-color:{color}55;box-shadow:0 8px 0 {color}33;">'
+        f'<div class="game-card" style="border-color:{color}66;box-shadow:0 6px 0 {color}33;">'
         f'<div class="stars-row">{stars}</div>'
         f'<div class="score-number" style="color:{color};">{pct}%</div>'
         f'<div class="score-msg" style="color:{color};">{msg}</div>'
@@ -615,7 +656,8 @@ def show_results():
 
     # ── Word breakdown ───────────────────────────────────────────────────────
     st.markdown(
-        '<h3 style="font-family:Fredoka,sans-serif;color:#1e3a8a;margin-top:4px;">📊 Word Breakdown</h3>',
+        '<h3 style="font-family:Fredoka,sans-serif;color:#111827;margin-top:4px;">'
+        '📊 Word Breakdown</h3>',
         unsafe_allow_html=True,
     )
     c1, c2, c3, c4 = st.columns(4)
@@ -626,15 +668,16 @@ def show_results():
 
     # ── Word diff ────────────────────────────────────────────────────────────
     st.markdown(
-        '<h3 style="font-family:Fredoka,sans-serif;color:#1e3a8a;margin-top:20px;">🔍 Word by Word</h3>',
+        '<h3 style="font-family:Fredoka,sans-serif;color:#111827;margin-top:20px;">'
+        '🔍 Word by Word</h3>',
         unsafe_allow_html=True,
     )
     st.markdown(
         '<div class="diff-legend">'
-        '<span class="diff-pill" style="background:#dcfce7;border-color:#86efac;color:#15803d;">✅ Read correctly</span>'
-        '<span class="diff-pill" style="background:#ffedd5;border-color:#fdba74;color:#c2410c;">⚠️ Read differently</span>'
-        '<span class="diff-pill" style="background:#fee2e2;border-color:#fca5a5;color:#b91c1c;">❌ Skipped</span>'
-        '<span class="diff-pill" style="background:#dbeafe;border-color:#93c5fd;color:#1d4ed8;">➕ Extra word</span>'
+        '<span class="diff-pill" style="background:#dcfce7;border-color:#86efac;color:#14532d;">✅ Read correctly</span>'
+        '<span class="diff-pill" style="background:#fef3c7;border-color:#fcd34d;color:#92400e;">⚠️ Read differently</span>'
+        '<span class="diff-pill" style="background:#fee2e2;border-color:#fca5a5;color:#7f1d1d;">❌ Skipped</span>'
+        '<span class="diff-pill" style="background:#dbeafe;border-color:#93c5fd;color:#1e3a8a;">➕ Extra word</span>'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -699,8 +742,9 @@ def show_results():
     )
 
     st.markdown(
-        '<p style="text-align:center;font-size:13px;color:#60a5fa;margin-top:16px;">'
-        'Powered by AssemblyAI Universal-3 Pro &nbsp;|&nbsp; ITE153 — Intro to AI and Expert Systems</p>',
+        '<p style="text-align:center;font-size:13px;color:#374151;margin-top:16px;">'
+        'Powered by AssemblyAI Universal-3 Pro &nbsp;|&nbsp; '
+        'ITE153 — Intro to AI and Expert Systems</p>',
         unsafe_allow_html=True,
     )
 
