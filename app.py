@@ -2,7 +2,7 @@
 app.py  —  Para's Reading Adventure
 AI-Enhanced Speech-to-Text Reading Assessment Tool
 
-Light theme | Blue & Red accents | Black text
+Cartoon theme | Green & Yellow accents | Child-friendly design
 STT Engine: AssemblyAI Universal-3 Pro
 NLP Engine: Python difflib SequenceMatcher
 
@@ -63,105 +63,153 @@ for k, v in _defaults.items():
         st.session_state[k] = v
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Global CSS — light theme, black text, blue + red accents
+#  Global CSS — Cartoon Green Theme, Child-Friendly
 # ─────────────────────────────────────────────────────────────────────────────
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka+One&display=swap');
 
 /* ── Base ───────────────────────────────────────────────────────────────── */
 html, body, [class*="css"] {
-    font-family: 'Nunito', sans-serif !important;
-    color: #111827 !important;
+    font-family: 'Baloo 2', cursive !important;
+    color: #2D5016 !important;
 }
 .stApp {
-    background: #f1f5f9 !important;
+    background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 30%, #A5D6A7 60%, #E8F5E9 100%) !important;
+    background-attachment: fixed !important;
 }
 #MainMenu, footer, header { visibility: hidden; }
 .block-container {
-    max-width: 700px;
-    padding-top: 1.5rem;
+    max-width: 750px;
+    padding-top: 1rem;
     padding-bottom: 3rem;
-    background: #f1f5f9;
+    background: transparent;
 }
 h1, h2, h3, h4 {
-    font-family: 'Fredoka', sans-serif !important;
-    color: #111827 !important;
+    font-family: 'Fredoka One', cursive !important;
+    color: #2D5016 !important;
 }
 p, span, label, div {
-    color: #111827;
+    color: #2D5016;
 }
 
 /* ── Hide sidebar toggle ────────────────────────────────────────────────── */
 [data-testid="collapsedControl"] { display: none !important; }
 [data-testid="stSidebar"]        { display: none !important; }
 
-/* ── Primary button → Red ───────────────────────────────────────────────── */
-[data-testid="stButton"] > button[kind="primary"] {
-    background: #dc2626 !important;
-    color: #ffffff !important;
-    font-family: 'Fredoka', sans-serif !important;
-    font-size: 20px !important;
-    font-weight: 600 !important;
-    border: none !important;
-    border-radius: 50px !important;
-    padding: 14px 40px !important;
-    box-shadow: 0 6px 0 #991b1b !important;
-    transition: transform 0.1s, box-shadow 0.1s !important;
-    width: 100% !important;
-    letter-spacing: 0.4px;
+/* ── Floating leaves decoration ─────────────────────────────────────────── */
+.stApp::before {
+    content: "🍃 🌿 🍂 🌱";
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 30px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatLeaves 20s linear infinite;
 }
-[data-testid="stButton"] > button[kind="primary"]:hover {
-    background: #ef4444 !important;
-}
-[data-testid="stButton"] > button[kind="primary"]:active {
-    box-shadow: 0 2px 0 #991b1b !important;
-    transform: translateY(4px) !important;
+.stApp::after {
+    content: "🌸 🌻 🌼 🍀";
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 30px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatLeaves 25s linear infinite reverse;
 }
 
-/* ── Secondary button → Blue ────────────────────────────────────────────── */
-[data-testid="stButton"] > button[kind="secondary"] {
-    background: #1d4ed8 !important;
+@keyframes floatLeaves {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* ── Primary button → Green ─────────────────────────────────────────────── */
+[data-testid="stButton"] > button[kind="primary"] {
+    background: #4CAF50 !important;
     color: #ffffff !important;
-    font-family: 'Fredoka', sans-serif !important;
-    font-size: 18px !important;
-    font-weight: 600 !important;
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 22px !important;
+    font-weight: 400 !important;
     border: none !important;
     border-radius: 50px !important;
-    padding: 12px 32px !important;
-    box-shadow: 0 5px 0 #1e3a8a !important;
+    padding: 16px 40px !important;
+    box-shadow: 0 8px 0 #2E7D32, 0 10px 20px rgba(0,0,0,0.1) !important;
+    transition: transform 0.1s, box-shadow 0.1s !important;
+    width: 100% !important;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+[data-testid="stButton"] > button[kind="primary"]::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+[data-testid="stButton"] > button[kind="primary"]:hover {
+    background: #66BB6A !important;
+    box-shadow: 0 8px 0 #2E7D32, 0 12px 24px rgba(0,0,0,0.15) !important;
+}
+[data-testid="stButton"] > button[kind="primary"]:hover::after {
+    opacity: 1;
+}
+[data-testid="stButton"] > button[kind="primary"]:active {
+    box-shadow: 0 3px 0 #2E7D32, 0 5px 10px rgba(0,0,0,0.1) !important;
+    transform: translateY(5px) !important;
+}
+
+/* ── Secondary button → Yellow ──────────────────────────────────────────── */
+[data-testid="stButton"] > button[kind="secondary"] {
+    background: #FFB300 !important;
+    color: #4E342E !important;
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 14px 32px !important;
+    box-shadow: 0 6px 0 #F57F17, 0 8px 16px rgba(0,0,0,0.1) !important;
     transition: transform 0.1s, box-shadow 0.1s !important;
     width: 100% !important;
 }
 [data-testid="stButton"] > button[kind="secondary"]:hover {
-    background: #2563eb !important;
+    background: #FFC107 !important;
 }
 [data-testid="stButton"] > button[kind="secondary"]:active {
-    box-shadow: 0 2px 0 #1e3a8a !important;
-    transform: translateY(3px) !important;
+    box-shadow: 0 2px 0 #F57F17 !important;
+    transform: translateY(4px) !important;
 }
 [data-testid="stButton"] > button:disabled {
-    background: #94a3b8 !important;
-    box-shadow: 0 4px 0 #64748b !important;
-    color: #f1f5f9 !important;
+    background: #BDBDBD !important;
+    box-shadow: 0 4px 0 #9E9E9E !important;
+    color: #757575 !important;
 }
 
 /* ── Text area ──────────────────────────────────────────────────────────── */
 .stTextArea textarea {
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 15px !important;
-    border-radius: 14px !important;
-    border: 2px solid #cbd5e1 !important;
+    font-family: 'Baloo 2', cursive !important;
+    font-size: 16px !important;
+    border-radius: 18px !important;
+    border: 3px solid #81C784 !important;
     background: #ffffff !important;
-    color: #111827 !important;
+    color: #2D5016 !important;
 }
 .stTextArea textarea:focus {
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.12) !important;
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 4px rgba(76,175,80,0.15) !important;
 }
 .stTextArea label {
-    color: #111827 !important;
+    color: #2D5016 !important;
     font-weight: 700 !important;
 }
 
@@ -171,82 +219,93 @@ p, span, label, div {
     background: transparent;
 }
 .stTabs [data-baseweb="tab"] {
-    font-family: 'Fredoka', sans-serif !important;
+    font-family: 'Fredoka One', cursive !important;
     font-size: 17px !important;
-    font-weight: 600 !important;
-    border-radius: 20px 20px 0 0 !important;
-    padding: 8px 24px !important;
-    color: #1d4ed8 !important;
-    background: #dbeafe !important;
+    font-weight: 400 !important;
+    border-radius: 25px 25px 0 0 !important;
+    padding: 10px 24px !important;
+    color: #2D5016 !important;
+    background: #C8E6C9 !important;
+    border: 3px solid #A5D6A7 !important;
 }
 .stTabs [aria-selected="true"] {
-    background: #1d4ed8 !important;
+    background: #4CAF50 !important;
     color: #ffffff !important;
+    border-color: #4CAF50 !important;
 }
 
 /* ── Metric cards ───────────────────────────────────────────────────────── */
 [data-testid="metric-container"] {
     background: #ffffff !important;
-    border: 2px solid #cbd5e1 !important;
-    border-radius: 16px !important;
-    padding: 14px 10px !important;
-    box-shadow: 0 4px 0 #e2e8f0 !important;
+    border: 3px solid #A5D6A7 !important;
+    border-radius: 20px !important;
+    padding: 16px 10px !important;
+    box-shadow: 0 6px 0 #C8E6C9, 0 8px 16px rgba(0,0,0,0.05) !important;
     text-align: center !important;
 }
 [data-testid="metric-container"] label {
-    font-family: 'Fredoka', sans-serif !important;
+    font-family: 'Fredoka One', cursive !important;
     font-size: 14px !important;
-    color: #374151 !important;
+    color: #4E8C2E !important;
 }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-family: 'Fredoka', sans-serif !important;
-    font-size: 30px !important;
-    color: #111827 !important;
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 32px !important;
+    color: #2D5016 !important;
 }
 
 /* ── Alerts ─────────────────────────────────────────────────────────────── */
 .stAlert {
-    border-radius: 14px !important;
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 15px !important;
+    border-radius: 18px !important;
+    font-family: 'Baloo 2', cursive !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
-    color: #111827 !important;
+    color: #2D5016 !important;
+    border: 3px solid #A5D6A7 !important;
 }
-.stAlert p { color: #111827 !important; }
+.stAlert p { color: #2D5016 !important; }
 
 /* ── Expander ────────────────────────────────────────────────────────────── */
 .stExpander {
-    border: 2px solid #cbd5e1 !important;
-    border-radius: 16px !important;
+    border: 3px solid #A5D6A7 !important;
+    border-radius: 20px !important;
     background: #ffffff !important;
+    box-shadow: 0 6px 0 #C8E6C9 !important;
 }
 details summary {
-    font-family: 'Fredoka', sans-serif !important;
-    font-size: 17px !important;
-    color: #1d4ed8 !important;
-    font-weight: 600 !important;
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 18px !important;
+    color: #4CAF50 !important;
+    font-weight: 400 !important;
 }
 
 /* ── Spinner ─────────────────────────────────────────────────────────────── */
 .stSpinner p {
-    font-family: 'Fredoka', sans-serif !important;
+    font-family: 'Fredoka One', cursive !important;
     font-size: 18px !important;
-    color: #1d4ed8 !important;
+    color: #4CAF50 !important;
 }
 
 /* ── Caption / small text ───────────────────────────────────────────────── */
 .stCaption, small, .caption {
-    color: #374151 !important;
+    color: #4E8C2E !important;
     font-weight: 600 !important;
 }
 
 /* ── Divider ─────────────────────────────────────────────────────────────── */
-hr { border-color: #cbd5e1 !important; }
+hr { border-color: #A5D6A7 !important; border-width: 2px !important; }
 
 /* ── Animations ─────────────────────────────────────────────────────────── */
 @keyframes bounce {
     0%,100% { transform: translateY(0px); }
-    50%      { transform: translateY(-16px); }
+    30%     { transform: translateY(-20px); }
+    50%     { transform: translateY(0px); }
+    70%     { transform: translateY(-10px); }
+}
+@keyframes wiggle {
+    0%,100% { transform: rotate(0deg); }
+    25%     { transform: rotate(-5deg); }
+    75%     { transform: rotate(5deg); }
 }
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -254,145 +313,255 @@ hr { border-color: #cbd5e1 !important; }
 }
 @keyframes starPop {
     0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
-    70%  { transform: scale(1.25) rotate(5deg); }
+    60%  { transform: scale(1.3) rotate(5deg); }
     100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50%     { transform: translateY(-10px); }
+}
+@keyframes sparkle {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%     { opacity: 0.6; transform: scale(1.15); }
 }
 
 /* ── Custom HTML blocks ─────────────────────────────────────────────────── */
 
-/* White game card with light border */
+/* Cartoon card */
 .game-card {
     background: #ffffff;
-    border-radius: 22px;
+    border-radius: 24px;
     padding: 26px 28px;
-    border: 2px solid #cbd5e1;
-    box-shadow: 0 6px 0 #e2e8f0;
+    border: 4px solid #81C784;
+    box-shadow: 0 8px 0 #66BB6A, 0 10px 20px rgba(0,0,0,0.08);
     margin-bottom: 18px;
-    animation: fadeUp 0.45s ease;
+    animation: fadeUp 0.5s ease;
+    position: relative;
+}
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 20px;
+    right: 20px;
+    height: 6px;
+    background: #A5D6A7;
+    border-radius: 0 0 10px 10px;
 }
 
-/* Passage — stays dark blue, white text (intentional contrast) */
+/* Passage card — green gradient */
 .passage-card {
-    background: #1e3a8a;
-    border-radius: 22px;
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
+    border-radius: 24px;
     padding: 24px 28px;
     color: #ffffff !important;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
     line-height: 2.2;
     margin: 12px 0 18px;
-    box-shadow: 0 7px 0 #1e40af;
-    animation: fadeUp 0.45s ease;
-    border: 3px solid #3b82f6;
+    box-shadow: 0 8px 0 #388E3C, 0 10px 20px rgba(0,0,0,0.1);
+    animation: fadeUp 0.5s ease;
+    border: 4px solid #A5D6A7;
+    position: relative;
+}
+.passage-card * {
+    color: #ffffff !important;
 }
 
 /* Page title */
 .page-title {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 44px;
-    font-weight: 700;
-    color: #111827;
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 46px;
+    font-weight: 400;
+    color: #2D5016;
     text-align: center;
     line-height: 1.2;
     margin: 0 0 6px;
-    animation: fadeUp 0.45s ease;
+    animation: fadeUp 0.5s ease;
+    text-shadow: 3px 3px 0px rgba(76,175,80,0.2);
 }
 
 /* Bouncing butterfly */
 .hero-char {
-    font-size: 96px;
+    font-size: 100px;
     text-align: center;
     display: block;
     margin: 8px 0;
-    animation: bounce 2.2s ease-in-out infinite;
+    animation: bounce 2.5s ease-in-out infinite, wiggle 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.15));
 }
 
 /* Numbered step label */
 .step-label {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #111827;
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px;
+    font-weight: 400;
+    color: #2D5016;
     margin: 16px 0 6px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 .step-num {
-    background: #dc2626;
+    background: #4CAF50;
     color: #ffffff;
-    font-family: 'Fredoka', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    width: 30px;
-    height: 30px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 18px;
+    font-weight: 400;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 3px 0 #991b1b;
+    box-shadow: 0 5px 0 #2E7D32;
+    border: 3px solid #A5D6A7;
 }
 
 /* Score page — big number */
 .score-number {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 88px;
-    font-weight: 700;
+    font-family: 'Fredoka One', cursive;
+    font-size: 92px;
+    font-weight: 400;
     text-align: center;
     line-height: 1;
     margin-bottom: 4px;
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
 }
 .score-msg {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 28px;
-    font-weight: 600;
+    font-family: 'Fredoka One', cursive;
+    font-size: 30px;
+    font-weight: 400;
     text-align: center;
     margin-top: 2px;
 }
 .stars-row {
-    font-size: 46px;
+    font-size: 50px;
     text-align: center;
     margin: 6px 0 10px;
-    animation: starPop 0.6s cubic-bezier(.36,.07,.19,.97) both;
+    animation: starPop 0.7s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 /* Diff legend pills */
-.diff-legend { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 14px; }
+.diff-legend { 
+    display: flex; 
+    gap: 8px; 
+    flex-wrap: wrap; 
+    margin: 10px 0 14px; 
+    justify-content: center;
+}
 .diff-pill {
     border-radius: 99px;
-    padding: 4px 14px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    border: 2px solid transparent;
-    color: #111827;
+    padding: 6px 16px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 14px;
+    font-weight: 700;
+    border: 3px solid transparent;
+    color: #2D5016;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.1);
 }
 
 /* Page header strip */
 .page-header {
-    background: #1e3a8a;
-    border-radius: 18px;
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    border-radius: 20px;
     padding: 14px 22px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 18px;
-    box-shadow: 0 5px 0 #1e40af;
+    box-shadow: 0 6px 0 #388E3C, 0 8px 16px rgba(0,0,0,0.1);
+    border: 3px solid #A5D6A7;
 }
 
 /* How-to-play items */
 .how-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    margin: 10px 0;
-    font-size: 16px;
-    font-weight: 700;
-    color: #111827;
+    gap: 14px;
+    margin: 12px 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #2D5016;
+    padding: 10px 14px;
+    background: #F1F8E9;
+    border-radius: 16px;
+    border: 2px solid #C8E6C9;
 }
-.how-icon { font-size: 26px; flex-shrink: 0; }
+.how-icon { 
+    font-size: 30px; 
+    flex-shrink: 0;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Menu card */
+.menu-card {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 30px;
+    border: 4px solid #81C784;
+    box-shadow: 0 10px 0 #66BB6A, 0 12px 24px rgba(0,0,0,0.08);
+    text-align: center;
+    margin: 10px 0;
+    animation: fadeUp 0.6s ease;
+}
+
+/* Clouds decoration */
+.cloud-decor {
+    position: fixed;
+    font-size: 40px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Audio input styling */
+[data-testid="stAudioInput"] {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    border: 3px solid #81C784 !important;
+    padding: 10px !important;
+    box-shadow: 0 5px 0 #A5D6A7 !important;
+}
+
+/* File uploader styling */
+[data-testid="stFileUploader"] {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    border: 3px dashed #81C784 !important;
+    padding: 10px !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .page-title {
+        font-size: 32px;
+    }
+    .hero-char {
+        font-size: 70px;
+    }
+    .score-number {
+        font-size: 64px;
+    }
+    .score-msg {
+        font-size: 22px;
+    }
+    .stars-row {
+        font-size: 36px;
+    }
+    .passage-card {
+        font-size: 16px;
+        padding: 18px 16px;
+    }
+}
 </style>
+
+<!-- Decorative elements -->
+<div class="cloud-decor" style="top: 5%; left: 3%;">☁️</div>
+<div class="cloud-decor" style="top: 15%; right: 5%; animation-delay: 2s;">☁️</div>
+<div class="cloud-decor" style="bottom: 20%; left: 8%; animation-delay: 4s; font-size: 30px;">☁️</div>
 """, unsafe_allow_html=True)
 
 
@@ -403,30 +572,36 @@ hr { border-color: #cbd5e1 !important; }
 def score_to_stars(pct: float) -> tuple[str, str, str]:
     """Returns (star_emojis, message, hex_color)."""
     if pct >= 95:
-        return "⭐⭐⭐⭐⭐", "Amazing Reader!",   "#15803d"
+        return "⭐⭐⭐⭐⭐", "Amazing Reader!",   "#2E7D32"
     elif pct >= 85:
-        return "⭐⭐⭐⭐",   "Great Job!",         "#1d4ed8"
+        return "⭐⭐⭐⭐",   "Great Job!",         "#4CAF50"
     elif pct >= 70:
-        return "⭐⭐⭐",     "Good Try!",          "#b45309"
+        return "⭐⭐⭐",     "Good Try!",          "#FFB300"
     elif pct >= 50:
-        return "⭐⭐",       "Keep Practicing!",   "#c2410c"
+        return "⭐⭐",       "Keep Practicing!",   "#FF8F00"
     else:
-        return "⭐",         "Let's Try Again!",   "#b91c1c"
+        return "⭐",         "Let's Try Again!",   "#EF6C00"
 
 
 def build_child_diff_html(diff_tokens: list) -> str:
     """Renders color-coded word diff in a child-friendly style."""
     COLOR = {
-        "correct"    : "#14532d",
-        "substituted": "#92400e",
-        "missed"     : "#7f1d1d",
-        "extra"      : "#1e3a8a",
+        "correct"    : "#1B5E20",
+        "substituted": "#E65100",
+        "missed"     : "#B71C1C",
+        "extra"      : "#0D47A1",
     }
     BG = {
-        "correct"    : "#dcfce7",
-        "substituted": "#fef3c7",
-        "missed"     : "#fee2e2",
-        "extra"      : "#dbeafe",
+        "correct"    : "#C8E6C9",
+        "substituted": "#FFE0B2",
+        "missed"     : "#FFCDD2",
+        "extra"      : "#BBDEFB",
+    }
+    BORDER = {
+        "correct"    : "#66BB6A",
+        "substituted": "#FFB74D",
+        "missed"     : "#EF5350",
+        "extra"      : "#64B5F6",
     }
     parts = []
     for token in diff_tokens:
@@ -434,12 +609,14 @@ def build_child_diff_html(diff_tokens: list) -> str:
         tag = token["tag"]
         parts.append(
             f'<span style="background:{BG[tag]};color:{COLOR[tag]};'
-            f'padding:4px 9px;border-radius:10px;font-weight:700;'
-            f'margin:3px 2px;display:inline-block;font-size:17px;">{w}</span>'
+            f'padding:5px 10px;border-radius:12px;font-weight:700;'
+            f'margin:3px 3px;display:inline-block;font-size:17px;'
+            f'border:2px solid {BORDER[tag]};'
+            f'box-shadow: 0 2px 0 {BORDER[tag]};">{w}</span>'
         )
     return (
-        "<p style='font-family:Nunito,sans-serif;"
-        "line-height:2.6;font-size:17px;color:#111827;'>"
+        "<p style='font-family:Baloo 2,cursive;"
+        "line-height:2.8;font-size:17px;color:#2D5016;'>"
         + " ".join(parts) + "</p>"
     )
 
@@ -449,47 +626,84 @@ def build_child_diff_html(diff_tokens: list) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def show_menu():
+    # Hero section
     st.markdown('<span class="hero-char">🦋</span>', unsafe_allow_html=True)
 
     st.markdown(
         '<h1 class="page-title">Para\'s Reading<br>Adventure!</h1>',
         unsafe_allow_html=True,
     )
-    st.markdown(
-        '<p style="text-align:center;font-size:19px;color:#111827;'
-        'font-weight:700;margin:6px 0 30px;">'
-        'Read the story out loud and earn your stars! 📚✨</p>',
-        unsafe_allow_html=True,
-    )
+    
+    # Welcome message in a cute card
+    st.markdown("""
+    <div class="menu-card">
+        <p style="font-size:20px;font-weight:700;color:#2D5016;margin:0;line-height:1.6;">
+            🌟 Welcome, little reader! 🌟
+        </p>
+        <p style="font-size:16px;color:#4E8C2E;margin:8px 0 0;font-weight:600;">
+            Help Para the butterfly read her story!<br>
+            Read out loud and earn shiny stars! ⭐
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Start button
     _, col, _ = st.columns([1, 2, 1])
     with col:
-        if st.button("▶  Start Reading!", type="primary", key="btn_start"):
+        if st.button("🎮  Start Reading!", type="primary", key="btn_start"):
             st.session_state.page = "reading"
             st.rerun()
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # How to Play expander
     with st.expander("📖  How to Play"):
         st.markdown("""
-<div class="how-item"><span class="how-icon">1️⃣</span>
-<span>Read the story shown on the next screen carefully.</span></div>
+<div class="how-item">
+    <span class="how-icon">1️⃣</span>
+    <span>Read the story shown on the screen <b style="color:#4CAF50;">carefully</b>.</span>
+</div>
 
-<div class="how-item"><span class="how-icon">2️⃣</span>
-<span>Press the <b style="color:#dc2626">microphone button</b> and read the story out loud.</span></div>
+<div class="how-item">
+    <span class="how-icon">2️⃣</span>
+    <span>Press the <b style="color:#4CAF50;">microphone button</b> 🎙️ and read the story out loud!</span>
+</div>
 
-<div class="how-item"><span class="how-icon">3️⃣</span>
-<span>Press <b style="color:#dc2626">Transcribe</b> to turn your voice into words on the screen.</span></div>
+<div class="how-item">
+    <span class="how-icon">3️⃣</span>
+    <span>Press <b style="color:#4CAF50;">Transcribe</b> to turn your voice into words on the screen.</span>
+</div>
 
-<div class="how-item"><span class="how-icon">4️⃣</span>
-<span>Press <b style="color:#dc2626">Check My Score!</b> to see how many stars you earned.</span></div>
+<div class="how-item">
+    <span class="how-icon">4️⃣</span>
+    <span>Press <b style="color:#4CAF50;">Check My Score!</b> to see how many stars you earned! ⭐</span>
+</div>
 
-<div class="how-item"><span class="how-icon">⭐</span>
-<span>Try to earn <b>5 stars!</b> You can do it!</span></div>
+<div class="how-item">
+    <span class="how-icon">🏆</span>
+    <span>Try to earn <b style="color:#FFB300;">5 stars!</b> You can do it, superstar! 🌟</span>
+</div>
 """, unsafe_allow_html=True)
 
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Fun facts or encouragement
+    st.markdown("""
+    <div style="text-align:center;padding:16px;background:#F1F8E9;border-radius:20px;
+                border:3px solid #C8E6C9;box-shadow:0 5px 0 #A5D6A7;">
+        <p style="font-size:16px;font-weight:700;color:#4CAF50;margin:0;">
+            🦋 Did you know? Para means "butterfly" in some languages!
+        </p>
+        <p style="font-size:14px;color:#4E8C2E;margin:4px 0 0;font-weight:600;">
+            Just like a butterfly, your reading will soar! 🚀
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown(
-        '<p style="text-align:center;font-size:13px;color:#374151;margin-top:36px;">'
+        '<p style="text-align:center;font-size:13px;color:#66BB6A;margin-top:36px;font-weight:600;">'
         'Powered by AssemblyAI Universal-3 Pro &nbsp;|&nbsp; '
         'ITE153 — Intro to AI and Expert Systems</p>',
         unsafe_allow_html=True,
@@ -504,16 +718,16 @@ def show_reading():
     # ── Top bar ──────────────────────────────────────────────────────────────
     st.markdown(
         '<div class="page-header">'
-        '<span style="font-family:Fredoka,sans-serif;font-size:22px;'
-        'font-weight:700;color:#ffffff;">🦋 Para\'s Story</span>'
-        '<span style="font-size:26px;">📖</span>'
+        '<span style="font-family:Fredoka One,cursive;font-size:24px;'
+        'font-weight:400;color:#ffffff;">🦋 Para\'s Story</span>'
+        '<span style="font-size:28px;">📖</span>'
         '</div>',
         unsafe_allow_html=True,
     )
 
     col_back, _ = st.columns([1, 4])
     with col_back:
-        if st.button("← Menu", type="secondary", key="back_menu"):
+        if st.button("🏠 Menu", type="secondary", key="back_menu"):
             st.session_state.transcribed_text = ""
             st.session_state.accuracy_result  = None
             st.session_state.page = "menu"
@@ -524,7 +738,7 @@ def show_reading():
     # ── Step 1: Read the Passage ─────────────────────────────────────────────
     st.markdown(
         '<div class="step-label">'
-        '<span class="step-num">1</span> Read this passage out loud!'
+        '<span class="step-num">1</span> 📚 Read this passage out loud!'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -533,7 +747,7 @@ def show_reading():
     # ── Step 2: Record or Upload ─────────────────────────────────────────────
     st.markdown(
         '<div class="step-label">'
-        '<span class="step-num">2</span> Record yourself reading!'
+        '<span class="step-num">2</span> 🎙️ Record yourself reading!'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -556,7 +770,7 @@ def show_reading():
                     st.error(f"Oops! {err}")
                 else:
                     st.session_state.transcribed_text = text
-                    st.session_state["trans_display"] = text   # update widget state directly
+                    st.session_state["trans_display"] = text
                     st.session_state.accuracy_result  = None
                     st.rerun()
 
@@ -578,18 +792,18 @@ def show_reading():
                     st.error(f"Oops! {err}")
                 else:
                     st.session_state.transcribed_text = text
-                    st.session_state["trans_display"] = text   # update widget state directly
+                    st.session_state["trans_display"] = text
                     st.session_state.accuracy_result  = None
                     st.rerun()
 
     # ── Step 3: Review Transcription ─────────────────────────────────────────
     st.markdown(
         '<div class="step-label">'
-        '<span class="step-num">3</span> What the computer heard:'
+        '<span class="step-num">3</span> ✏️ What the computer heard:'
         '</div>',
         unsafe_allow_html=True,
     )
-    st.caption("You can fix any mistakes here before checking your score.")
+    st.caption("You can fix any mistakes here before checking your score. 🧐")
 
     transcribed = st.text_area(
         "Transcription",
@@ -605,19 +819,29 @@ def show_reading():
 
     # ── Check Score ──────────────────────────────────────────────────────────
     can_score = bool(transcribed.strip())
-    if st.button(
-        "⭐  Check My Score!",
-        type="primary",
-        disabled=not can_score,
-        key="btn_score",
-    ):
-        result = calculate_accuracy(PASSAGE, transcribed)
-        st.session_state.accuracy_result = result
-        st.session_state.page = "results"
-        st.rerun()
+    
+    _, col_btn, _ = st.columns([1, 2, 1])
+    with col_btn:
+        if st.button(
+            "⭐  Check My Score!",
+            type="primary",
+            disabled=not can_score,
+            key="btn_score",
+        ):
+            result = calculate_accuracy(PASSAGE, transcribed)
+            st.session_state.accuracy_result = result
+            st.session_state.page = "results"
+            st.rerun()
 
     if not can_score:
-        st.caption("🎙️ Record and transcribe your reading first, then press Check My Score!")
+        st.markdown("""
+        <div style="text-align:center;padding:12px;background:#FFF9C4;border-radius:16px;
+                    border:2px solid #FFE082;margin-top:10px;">
+            <p style="font-size:15px;color:#F57F17;font-weight:700;margin:0;">
+                🎙️ Record and transcribe your reading first, then press Check My Score!
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -639,16 +863,16 @@ def show_results():
     # ── Top bar ──────────────────────────────────────────────────────────────
     st.markdown(
         '<div class="page-header">'
-        '<span style="font-family:Fredoka,sans-serif;font-size:22px;'
-        'font-weight:700;color:#ffffff;">🏆 Your Results</span>'
-        '<span style="font-size:26px;">🎉</span>'
+        '<span style="font-family:Fredoka One,cursive;font-size:24px;'
+        'font-weight:400;color:#ffffff;">🏆 Your Results</span>'
+        '<span style="font-size:28px;">🎉</span>'
         '</div>',
         unsafe_allow_html=True,
     )
 
     # ── Score card ───────────────────────────────────────────────────────────
     st.markdown(
-        f'<div class="game-card" style="border-color:{color}66;box-shadow:0 6px 0 {color}33;">'
+        f'<div class="game-card" style="border-color:{color};box-shadow:0 8px 0 {color}66, 0 10px 20px rgba(0,0,0,0.08);">'
         f'<div class="stars-row">{stars}</div>'
         f'<div class="score-number" style="color:{color};">{pct}%</div>'
         f'<div class="score-msg" style="color:{color};">{msg}</div>'
@@ -658,28 +882,28 @@ def show_results():
 
     # ── Word breakdown ───────────────────────────────────────────────────────
     st.markdown(
-        '<h3 style="font-family:Fredoka,sans-serif;color:#111827;margin-top:4px;">'
+        '<h3 style="font-family:Fredoka One,cursive;color:#2D5016;margin-top:4px;">'
         '📊 Word Breakdown</h3>',
         unsafe_allow_html=True,
     )
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Total Words",   result["total_words"])
+    c1.metric("📖 Total",   result["total_words"])
     c2.metric("✅ Correct",    result["correct_words"])
     c3.metric("⚠️ Different",  result["substituted_words"])
     c4.metric("❌ Skipped",    result["missed_words"])
 
     # ── Word diff ────────────────────────────────────────────────────────────
     st.markdown(
-        '<h3 style="font-family:Fredoka,sans-serif;color:#111827;margin-top:20px;">'
+        '<h3 style="font-family:Fredoka One,cursive;color:#2D5016;margin-top:20px;">'
         '🔍 Word by Word</h3>',
         unsafe_allow_html=True,
     )
     st.markdown(
         '<div class="diff-legend">'
-        '<span class="diff-pill" style="background:#dcfce7;border-color:#86efac;color:#14532d;">✅ Read correctly</span>'
-        '<span class="diff-pill" style="background:#fef3c7;border-color:#fcd34d;color:#92400e;">⚠️ Read differently</span>'
-        '<span class="diff-pill" style="background:#fee2e2;border-color:#fca5a5;color:#7f1d1d;">❌ Skipped</span>'
-        '<span class="diff-pill" style="background:#dbeafe;border-color:#93c5fd;color:#1e3a8a;">➕ Extra word</span>'
+        '<span class="diff-pill" style="background:#C8E6C9;border-color:#66BB6A;color:#1B5E20;">✅ Read correctly</span>'
+        '<span class="diff-pill" style="background:#FFE0B2;border-color:#FFB74D;color:#E65100;">⚠️ Read differently</span>'
+        '<span class="diff-pill" style="background:#FFCDD2;border-color:#EF5350;color:#B71C1C;">❌ Skipped</span>'
+        '<span class="diff-pill" style="background:#BBDEFB;border-color:#64B5F6;color:#0D47A1;">➕ Extra word</span>'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -689,17 +913,35 @@ def show_results():
 
     # ── Encouragement ────────────────────────────────────────────────────────
     if pct >= 95:
-        note = "🌟 You read almost every word perfectly! You are a reading superstar!"
+        note = "🌟 You read almost every word perfectly! You are a reading superstar! 🦋✨"
+        enc_color = "#C8E6C9"
+        enc_border = "#66BB6A"
     elif pct >= 85:
-        note = "🎉 Fantastic reading! Just a few words to practice and you'll be perfect!"
+        note = "🎉 Fantastic reading! Just a few words to practice and you'll be perfect! 💪"
+        enc_color = "#F1F8E9"
+        enc_border = "#A5D6A7"
     elif pct >= 70:
-        note = "👍 Good job! Look at the orange and red words above and practice those!"
+        note = "👍 Good job! Look at the orange and red words above and practice those! 📚"
+        enc_color = "#FFF9C4"
+        enc_border = "#FFE082"
     elif pct >= 50:
-        note = "💪 Nice try! Read the passage again and focus on each word carefully."
+        note = "💪 Nice try! Read the passage again and focus on each word carefully. 🎯"
+        enc_color = "#FFE0B2"
+        enc_border = "#FFB74D"
     else:
-        note = "🤗 Keep going! Reading gets better with practice. Try again — you can do it!"
+        note = "🤗 Keep going! Reading gets better with practice. Try again — you can do it! 🌈"
+        enc_color = "#FFCDD2"
+        enc_border = "#EF5350"
 
-    st.info(note)
+    st.markdown(f"""
+    <div style="background:{enc_color};border-radius:20px;padding:20px;
+                border:3px solid {enc_border};box-shadow:0 6px 0 {enc_border}66;margin:16px 0;">
+        <p style="font-size:18px;font-weight:700;color:#2D5016;text-align:center;margin:0;">
+            {note}
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ── Navigation ───────────────────────────────────────────────────────────
@@ -744,7 +986,7 @@ def show_results():
     )
 
     st.markdown(
-        '<p style="text-align:center;font-size:13px;color:#374151;margin-top:16px;">'
+        '<p style="text-align:center;font-size:13px;color:#66BB6A;margin-top:16px;font-weight:600;">'
         'Powered by AssemblyAI Universal-3 Pro &nbsp;|&nbsp; '
         'ITE153 — Intro to AI and Expert Systems</p>',
         unsafe_allow_html=True,
